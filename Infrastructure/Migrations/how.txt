@@ -1,0 +1,24 @@
+to add migration file go into your terminal 
+
+1) add EntityFramework core Cli  with nuggets
+
+2)
+dotnet tool install --global dotnet-ef  --> to install 
+
+dotnet tool update --global dotnet-ef  -->  to update
+
+dotnet ef -->to verify it have been uploaded
+
+
+3)
+
+dotnet ef migrations add initialmigrations
+ou 
+dotnet ef --startup-project C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI  migrations add myMigration01
+
+
+4) create the database ( if all is correctly set)
+dotnet ef database update
+OU
+dotnet ef --startup-project C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI  database update
+Attention !! il faut être dans le dossier infrastructure

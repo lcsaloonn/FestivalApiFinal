@@ -1,0 +1,15 @@
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.deps.json
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.dll
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.pdb
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\bin\Debug\netcoreapp3.1\Domain.dll
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\bin\Debug\netcoreapp3.1\Domain.pdb
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfo.cs
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.dll
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.pdb
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.json
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.dev.json
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.genruntimeconfig.cache

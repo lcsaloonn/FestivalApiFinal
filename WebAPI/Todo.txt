@@ -1,0 +1,29 @@
+----------------------A FAIRE--------------------------
+-Finir tous les DTO
+
+-regarder pour generic repository
+
+-verification des données reçu
+
+-Quand achat d'un ticket
+1) creation du ticket
+2) attribution à la personne par FK
+
+
+----------------URGENT --------------
+-methode update seul PATCH ne marche pas
+
+-pour dto create update voir pour foreign key
+
+-date time format incorect dans schedule
+
+
+ !!! passer les info de la table dbo.AspNetUser dans table user
+
+
+------------------------------------------
+
+Authorization       Bearer (+key générer)  => comment faire sur swigger
+
+
+
