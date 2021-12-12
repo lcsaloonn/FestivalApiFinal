@@ -30,7 +30,7 @@ namespace Infrastructure.SqlServer.Repositories.Hoodies
             return _context.Hoodies.FirstOrDefault(p => p.Id == id);
         }
 
-        public void CreateHoodie(Domain.Hoodies hoodie)
+        public Domain.Hoodies CreateHoodie(Domain.Hoodies hoodie)
         {
             if (hoodie == null)
             {
@@ -38,6 +38,7 @@ namespace Infrastructure.SqlServer.Repositories.Hoodies
             }
 
             _context.Hoodies.Add(hoodie);
+            return hoodie;
         }
 
         public void UpdateHoodie(Domain.Hoodies command)

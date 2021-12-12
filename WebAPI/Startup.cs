@@ -38,12 +38,35 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            //Swagger Configuration
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "FestivalAPI", Version = "v1"});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+                    In = ParameterLocation.Header, 
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    { 
+                        new OpenApiSecurityScheme 
+                        { 
+                            Reference = new OpenApiReference 
+                            { 
+                                Type =  ReferenceType.SecurityScheme,
+                                Id = "Bearer" 
+                            } 
+                        },
+                        new string[] { } 
+                    } 
+                });
             });
             
-            //ToDo change eher
+            
+            
+            //ToDo change her   
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IHoodiesRepository, HoodieRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
@@ -55,6 +78,7 @@ namespace WebAPI
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
             services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FestivalConnection")));
             
             //JWT
@@ -73,7 +97,7 @@ namespace WebAPI
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ValidateLifetime = true,
-                        RequireExpirationTime = false
+                        RequireExpirationTime = false // TOdo a modifier
                     };
                 });
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
