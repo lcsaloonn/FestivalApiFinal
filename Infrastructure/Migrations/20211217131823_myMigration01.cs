@@ -80,9 +80,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    schedule_start = table.Column<DateTime>(type: "Date", nullable: false),
-                    schedule_end = table.Column<DateTime>(type: "Date", nullable: false),
-                    date_prestation = table.Column<DateTime>(type: "Date", nullable: false)
+                    ScheduleStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduleEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -212,22 +211,22 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Stage_Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Id_Music = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Id_schedule = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    StageName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    IdMusic = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdSchedule = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Artistes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Artistes_Musics_Id_Music",
-                        column: x => x.Id_Music,
+                        name: "FK_Artistes_Musics_IdMusic",
+                        column: x => x.IdMusic,
                         principalTable: "Musics",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Artistes_Schedules_Id_schedule",
-                        column: x => x.Id_schedule,
+                        name: "FK_Artistes_Schedules_IdSchedule",
+                        column: x => x.IdSchedule,
                         principalTable: "Schedules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -255,14 +254,14 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Artistes_Id_Music",
+                name: "IX_Artistes_IdMusic",
                 table: "Artistes",
-                column: "Id_Music");
+                column: "IdMusic");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Artistes_Id_schedule",
+                name: "IX_Artistes_IdSchedule",
                 table: "Artistes",
-                column: "Id_schedule");
+                column: "IdSchedule");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

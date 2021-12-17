@@ -4,10 +4,12 @@ using Application.UserCase.Schedules;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Schedules;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/Schedule")]
     [ApiController]
     public class ScheduleController:ControllerBase
@@ -47,7 +49,7 @@ namespace WebAPI.Controllers
         
         //POST api/Hoodie
         [HttpPost]
-        public ActionResult<ScheduleReadDto> CreateSchedule(ScheduleReadDto scheduleCreateDto)
+        public ActionResult<ScheduleReadDto> CreateSchedule(ScheduleCreateDto scheduleCreateDto)
         {
             var scheduleModel = _mapper.Map<Schedules>(scheduleCreateDto);
             _repository.CreateSchedule(scheduleModel);

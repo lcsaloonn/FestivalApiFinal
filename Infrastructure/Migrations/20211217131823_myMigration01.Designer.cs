@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211130154338_myMigration01")]
+    [Migration("20211217131823_myMigration01")]
     partial class myMigration01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,24 +27,22 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Id_Music")
-                        .IsRequired()
+                    b.Property<Guid>("IdMusic")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Id_schedule")
-                        .IsRequired()
+                    b.Property<Guid>("IdSchedule")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Stage_Name")
+                    b.Property<string>("StageName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id_Music");
+                    b.HasIndex("IdMusic");
 
-                    b.HasIndex("Id_schedule");
+                    b.HasIndex("IdSchedule");
 
                     b.ToTable("Artistes");
                 });
@@ -107,14 +105,11 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("date_prestation")
-                        .HasColumnType("Date");
+                    b.Property<DateTime>("ScheduleEnd")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("schedule_end")
-                        .HasColumnType("Date");
-
-                    b.Property<DateTime>("schedule_start")
-                        .HasColumnType("Date");
+                    b.Property<DateTime>("ScheduleStart")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -369,13 +364,13 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Music", "Music")
                         .WithMany()
-                        .HasForeignKey("Id_Music")
+                        .HasForeignKey("IdMusic")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Schedules", "Schedules")
                         .WithMany()
-                        .HasForeignKey("Id_schedule")
+                        .HasForeignKey("IdSchedule")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

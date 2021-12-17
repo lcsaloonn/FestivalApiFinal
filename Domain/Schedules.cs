@@ -9,20 +9,10 @@ namespace Domain
         [Key] public Guid Id { get; set; }
 
         [Required]
-        [Column(TypeName="Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode=true)]
-        public DateTime schedule_start { get; set; }
+        public DateTime ScheduleStart { get; set; }
 
         [Required]
-        [Column(TypeName="Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode=true)]
-        public DateTime schedule_end { get; set; }
-
-       
+        public DateTime ScheduleEnd { get; set; }
         
-        [Required]
-        [Column(TypeName="Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode=true)]
-        public DateTime date_prestation { get; set; }
     }
 }

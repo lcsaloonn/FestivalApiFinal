@@ -9,6 +9,7 @@ using Application.authentication;
 using Application.UserCase.User.Dto;
 using Domain;
 using Infrastructure.SqlServer.Repositories.User;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,7 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 namespace WebAPI.Controllers
 {
     //apiManagement 
+    [EnableCors("MyPolicy")]
     [Route("api/[controller]")] 
     [ApiController]
     public class AuthManagementController:ControllerBase

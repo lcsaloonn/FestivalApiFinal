@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using AutoMapper;
 using Infrastructure.SqlServer.Data;
+using Infrastructure.SqlServer.Repositories.Artiste;
 using Infrastructure.SqlServer.Repositories.Hoodies;
 using Infrastructure.SqlServer.Repositories.Music;
 using Infrastructure.SqlServer.Repositories.Schedules;
@@ -71,7 +72,15 @@ namespace WebAPI
             services.AddScoped<IHoodiesRepository, HoodieRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IMusicRepository, MusicRepository>();
+            services.AddScoped<IArtistRepository, ArtistRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            
+            //Enable CORS for ip
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200", "https://localhost:5001").AllowAnyMethod().AllowAnyHeader();
+            }));
+            
             
             //JWT
             //map the config in appsettings to configuration.jwtconfig
@@ -118,6 +127,7 @@ namespace WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("MyPolicy"); //CORS policy
             app.UseAuthentication();//JWT
             app.UseAuthorization();
 

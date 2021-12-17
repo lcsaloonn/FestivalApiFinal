@@ -6,11 +6,13 @@ using Domain;
 using Infrastructure.SqlServer.Repositories.Hoodies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/Hoodie")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -26,7 +28,7 @@ namespace WebAPI.Controllers
         }
         //GET api/Hoodie
         [HttpGet]
-        public ActionResult<IEnumerable<HoodieReadDto>> GetAllCommands()
+        public ActionResult<IEnumerable<HoodieReadDto>> GetAllHoodies()
         {
             var hoodieItems = _repository.GetAllHoodies();
 
@@ -49,7 +51,7 @@ namespace WebAPI.Controllers
         
         //POST api/Hoodie
         [HttpPost]
-        public ActionResult<HoodieReadDto> CreateCommand(HoodieCreateDto hoodieCreateDto)
+        public ActionResult<HoodieReadDto> CreateHoodie(HoodieCreateDto hoodieCreateDto)
         {
             var hoodieModel = _mapper.Map<Hoodies>(hoodieCreateDto);
             _repository.CreateHoodie(hoodieModel);

@@ -4,18 +4,19 @@ using Application.UserCase.User.Dto;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.User;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/User")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-
-
+        
         public UserController(IUserRepository repository, IMapper mapper)
         {
             _userRepository = repository;

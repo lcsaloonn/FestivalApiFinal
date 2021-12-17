@@ -11,15 +11,15 @@ namespace Application.UserCase.Artist
         
         [Required]
         [MaxLength(250)]
-        public string Stage_Name { get; set; }
+        public string StageName { get; set; }
         
         [Required]
         [ForeignKey("Music")]
-        public Guid? Id_Music { get; set; }
+        public Guid? IdMusic { get; set; }
         
         [Required]
         [ForeignKey("Schedules")]
-        public Guid? Id_schedule { get; set; }
+        public Guid IdSchedule { get; set; }
 
         public virtual Domain.Music Music { get; set; }
         public virtual  Domain.Schedules Schedules { get; set; }

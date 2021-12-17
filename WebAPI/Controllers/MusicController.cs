@@ -4,10 +4,12 @@ using Application.UserCase.Music;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Music;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/Music")]
     [ApiController]
     public class MusicController:ControllerBase

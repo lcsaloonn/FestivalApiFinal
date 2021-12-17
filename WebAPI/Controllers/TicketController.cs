@@ -4,10 +4,12 @@ using Application.UserCase.Tickets;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Ticket;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/Ticket")]
     [ApiController]
     public class TicketController : ControllerBase

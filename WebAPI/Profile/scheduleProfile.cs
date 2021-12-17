@@ -3,14 +3,13 @@ using Domain;
 
 namespace WebAPI.Profile
 {
-    public class scheduleProfile:AutoMapper.Profile
+    public class ScheduleProfile:AutoMapper.Profile
     {
-        public scheduleProfile()
+        public ScheduleProfile()
         {
             CreateMap<Schedules, ScheduleReadDto>();
             CreateMap<ScheduleCreateDto, Schedules>();
-            CreateMap<ScheduleUpdateDto, Schedules>();
-            CreateMap<Schedules, ScheduleUpdateDto>();
+            
         }
     }
 }
