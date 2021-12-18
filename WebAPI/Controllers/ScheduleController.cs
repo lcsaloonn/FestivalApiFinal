@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         
         //GET api/Hoodie/{id}
         [HttpGet("{id}", Name = "GetScheduleById")]
-        public ActionResult<ScheduleReadDto> GetScheduleById(Guid id)
+        public ActionResult<ScheduleReadDto> GetScheduleById(int id)
         {
             var scheduleItems = _repository.GetScheduleById(id);
             if (scheduleItems != null)

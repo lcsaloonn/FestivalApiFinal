@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
         
         //GET api/Music/{id}
         [HttpGet("{id}", Name = "GetMusicById")]
-        public ActionResult<MusicReadDto> GetMusicById(Guid id)
+        public ActionResult<MusicReadDto> GetMusicById(int id)
         {
             var musicItems = _repository.GetMusicById(id);
             if (musicItems != null)
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
         //PUT api/Music/{id}
         //used to update everything
         [HttpPut("{id}")]
-        public ActionResult UpdateMusic(Guid id, MusicUpdateDto musicUpdateDto)
+        public ActionResult UpdateMusic(int id, MusicUpdateDto musicUpdateDto)
         {
             var musicModelFromRepo = _repository.GetMusicById(id);
             if (musicModelFromRepo == null)
@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
         
         //DELETE api/Music/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteMusic(Guid id)
+        public ActionResult DeleteMusic(int id)
         {
             var musicModelFromRepo = _repository.GetMusicById(id);
             if (musicModelFromRepo == null)

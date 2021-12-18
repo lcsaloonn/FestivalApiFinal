@@ -23,7 +23,7 @@ namespace Infrastructure.SqlServer.Repositories.Music
             return _context.Musics.ToList();
         }
 
-        public Domain.Music GetMusicById(Guid id)
+        public Domain.Music GetMusicById(int id)
         {
             return _context.Musics.FirstOrDefault(p => p.Id == id);
         }

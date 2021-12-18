@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211217131823_myMigration01")]
+    [Migration("20211218192847_myMigration01")]
     partial class myMigration01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,15 +23,16 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Artiste", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
-                    b.Property<Guid>("IdMusic")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdMusic")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("IdSchedule")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("IdSchedule")
+                        .HasColumnType("int");
 
                     b.Property<string>("StageName")
                         .IsRequired()
@@ -81,9 +82,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Music", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Link")
                         .HasMaxLength(250)
@@ -101,9 +103,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Schedules", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("ScheduleEnd")
                         .HasColumnType("datetime2");

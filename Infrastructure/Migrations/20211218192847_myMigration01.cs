@@ -66,7 +66,8 @@ namespace Infrastructure.Migrations
                 name: "Musics",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Link = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
                 },
@@ -79,7 +80,8 @@ namespace Infrastructure.Migrations
                 name: "Schedules",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ScheduleStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ScheduleEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -210,10 +212,11 @@ namespace Infrastructure.Migrations
                 name: "Artistes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     StageName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    IdMusic = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdSchedule = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IdMusic = table.Column<int>(type: "int", nullable: false),
+                    IdSchedule = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

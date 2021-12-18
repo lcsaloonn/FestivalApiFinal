@@ -7,7 +7,7 @@ namespace Infrastructure.SqlServer.Repositories.Music
     {
         bool SaveChanges();
         IEnumerable<Domain.Music> GetAllMusic();
-        Domain.Music GetMusicById(Guid id);
+        Domain.Music GetMusicById(int id);
         void CreateMusic(Domain.Music music);
         void UpdateMusic(Domain.Music music);
         void DeleteMusic(Domain.Music music);

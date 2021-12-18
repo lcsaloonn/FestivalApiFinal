@@ -13,12 +13,12 @@ namespace Application.UserCase.Artist
         public string StageName { get; set; }
         [Required]
         [ForeignKey("Music")]
-        public Guid IdMusic { get; set; }
+        public int IdMusic { get; set; }
         [Required]
         [ForeignKey("Schedules")]
-        public Guid IdSchedule { get; set; }
-
-       // public virtual Domain.Music Music { get; set; }
-       // public virtual Domain.Schedules Schedules { get; set; }
+        public int IdSchedule { get; set; }
+        
+        public virtual Domain.Music Music { get; set; }
+        public virtual Domain.Schedules Schedules { get; set; }
     }
 }

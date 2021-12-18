@@ -113,3 +113,4 @@ C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI\bin\Debug\netco
 C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.csproj.CopyComplete
