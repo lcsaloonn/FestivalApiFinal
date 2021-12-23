@@ -4,6 +4,8 @@ using Application.UserCase.Music;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Music;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +35,7 @@ namespace WebAPI.Controllers
         
         //GET api/Music/{id}
         [HttpGet("{id}", Name = "GetMusicById")]
-        public ActionResult<MusicReadDto> GetMusicById(int id)
+        public ActionResult<MusicReadDto> GetMusicById(Guid id)
         {
             var musicItems = _repository.GetMusicById(id);
             if (musicItems != null)
@@ -45,7 +47,7 @@ namespace WebAPI.Controllers
         
         //POST api/Music
         [HttpPost]
-        public ActionResult<MusicReadDto> CreateCommand(MusicCreateDto musicCreateDto)
+        public ActionResult<MusicReadDto> CreateMusic(MusicCreateDto musicCreateDto)
         {
             var musicModel = _mapper.Map<Music>(musicCreateDto);
             _repository.CreateMusic(musicModel);
@@ -59,7 +61,9 @@ namespace WebAPI.Controllers
         //PUT api/Music/{id}
         //used to update everything
         [HttpPut("{id}")]
-        public ActionResult UpdateMusic(int id, MusicUpdateDto musicUpdateDto)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public ActionResult UpdateMusic(Guid id, MusicUpdateDto musicUpdateDto)
+        
         {
             var musicModelFromRepo = _repository.GetMusicById(id);
             if (musicModelFromRepo == null)
@@ -75,7 +79,8 @@ namespace WebAPI.Controllers
         
         //DELETE api/Music/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteMusic(int id)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public ActionResult DeleteMusic(Guid id)
         {
             var musicModelFromRepo = _repository.GetMusicById(id);
             if (musicModelFromRepo == null)

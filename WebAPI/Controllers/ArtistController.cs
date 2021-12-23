@@ -4,6 +4,8 @@ using Application.UserCase.Artist;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Artiste;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +35,7 @@ namespace WebAPI.Controllers
         
         //GET api/Artist/{id}
         [HttpGet("{id}", Name = "GetArtistById")]
-        public ActionResult<ArtistReadDto> GetArtistById(int id)
+        public ActionResult<ArtistReadDto> GetArtistById(Guid id)
         {
             var artistItems = _repository.GetArtisteById(id);
             if (artistItems != null)
@@ -46,6 +48,7 @@ namespace WebAPI.Controllers
         }
         //POST api/Artist
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public ActionResult<ArtistReadDto> CreateArtist(ArtistCreateDto artistCreateDto)
         {
             var artistModel = _mapper.Map<Artiste>(artistCreateDto);
@@ -60,7 +63,8 @@ namespace WebAPI.Controllers
         //PUT api/Artist/{id}
         //used to update everything
         [HttpPut("{id}")]
-        public ActionResult UpdateArtist(int id, ArtistUpdateDto artistUpdateDto)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public ActionResult UpdateArtist(Guid id, ArtistUpdateDto artistUpdateDto)
         {
             var artistModelFromRepo = _repository.GetArtisteById(id);
             if (artistModelFromRepo == null)
@@ -76,7 +80,8 @@ namespace WebAPI.Controllers
         
         //DELETE api/Artist/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteArtist(int id)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public ActionResult DeleteArtist(Guid id)
         {
             var artistModelFromRepo = _repository.GetArtisteById(id);
             if (artistModelFromRepo == null)

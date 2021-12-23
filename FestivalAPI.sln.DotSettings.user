@@ -1,2 +1,13 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E0CBF96E_002D89D2_002D432A_002D8BA1_002D3EB239028436_002Fd_003ASqlServer_002Fd_003AData_002Ff_003AContext_002Ecs/@EntryIndexedValue">ForceIncluded</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=E0CBF96E_002D89D2_002D432A_002D8BA1_002D3EB239028436_002Fd_003ASqlServer_002Fd_003AData_002Ff_003AContext_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=093a359b_002Dc8d8_002D4977_002D893d_002De518878b39ee/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetMusicById_WithUnexistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::9F67BB06-0FCC-41E8-B424-35CA0391005D::net5.0::UnitTests.ScheduleControllerTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::9F67BB06-0FCC-41E8-B424-35CA0391005D::net5.0::UnitTests.HoodieControllerTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e4acb07a_002Dcffb_002D44f0_002D8c4d_002D691ea863d522/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateSchedule_Returns204_WhenValidObjectSubmitted" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::9F67BB06-0FCC-41E8-B424-35CA0391005D::net5.0::UnitTests.ScheduleControllerTest.UpdateSchedule_Returns204_WhenValidObjectSubmitted&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

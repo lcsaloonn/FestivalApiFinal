@@ -8,5 +8,6 @@ namespace Application.UserCase.Tickets
    
         public Guid Id { get; set; }
         public string Edition { get; set; }
+        public string Nom { get; set; }
     }
 }

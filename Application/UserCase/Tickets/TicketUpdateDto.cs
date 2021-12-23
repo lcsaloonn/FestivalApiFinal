@@ -6,5 +6,6 @@ namespace Application.UserCase.Tickets
     {
         [Required]
         public string Edition { get; set; }
+        public string Nom { get; set; }
     }
 }

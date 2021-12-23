@@ -28,6 +28,12 @@ namespace Infrastructure.SqlServer.Repositories.Ticket
         {
             return _context.Tickets.FirstOrDefault(p => p.Id == id);
         }
+        
+        public Domain.Ticket getTicketByName(string name)
+        {
+             return _context.Tickets.FirstOrDefault(p => p.Nom == name);
+        }
+        
 
         public void CreateTicket(Domain.Ticket ticket)
         {

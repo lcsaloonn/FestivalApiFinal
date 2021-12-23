@@ -24,7 +24,7 @@ namespace Infrastructure.SqlServer.Repositories.Artiste
             return _context.Artistes.ToList();
         }
 
-        public Domain.Artiste GetArtisteById(int id)
+        public Domain.Artiste GetArtisteById(Guid id)
         {
             return _context.Artistes.FirstOrDefault(p => p.Id == id);
         }

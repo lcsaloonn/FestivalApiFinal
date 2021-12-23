@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Application.authentication;
-using Application.UserCase.User.Dto;
-using Domain;
-using Infrastructure.SqlServer.Repositories.User;
+
+using Infrastructure.configuration;
+using Infrastructure.SqlServer.Data;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.configuration;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace WebAPI.Controllers
 {
@@ -27,11 +29,22 @@ namespace WebAPI.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly JwtConfig _jwtConfig;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ILogger<AuthManagementController> _logger;
+        private readonly Context _context;
+        
+        
 
-        public AuthManagementController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+
+        public AuthManagementController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor
+            ,RoleManager<IdentityRole> roleManager,ILogger<AuthManagementController> logger, Context context)
         {
             _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
+            _roleManager = roleManager;
+            _logger = logger;
+            _context = context;
+
         }
 
         [HttpPost]
@@ -60,15 +73,15 @@ namespace WebAPI.Controllers
                     UserName = user.Pseudo
                 };
                 var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+                
+                // add the user to a role
+                 await _userManager.AddToRoleAsync(newUser, "AppUser");
+                
                 if (isCreated.Succeeded)
                 {
-                    var jwtToken = GenerateJwtToken(newUser);
+                    //var jwtToken = GenerateJwtToken(newUser);
 
-                    return Ok(new RegistrationResponse()
-                    {
-                        IsSuccess = true,
-                        Token = jwtToken
-                    });
+                    return Ok();
                 }
                 else
                 {
@@ -120,13 +133,62 @@ namespace WebAPI.Controllers
                         }, IsSuccess = false
                     });
                 }
+                //test-----------------------------------
+                 var jwtTokenHandler = new JwtSecurityTokenHandler();
+                  var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
+                  
+                  var claims = new List<Claim>
+                  {
+                      new Claim("Id", existingUser.Id),
+                      new Claim(JwtRegisteredClaimNames.Sub, existingUser.UserName),
+                      new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                  };
+                  var userClaims = await _userManager.GetClaimsAsync(existingUser);
+                  claims.AddRange(userClaims);
+            
+                  // Get the user role and add it to the claims
+                  
+                  var userRoles = await _userManager.GetRolesAsync(existingUser);
+            
+                  foreach(var userRole in userRoles)
+                  {
+                      var role = await _roleManager.FindByNameAsync(userRole);
+            
+                      if(role != null)
+                      {
+                          claims.Add(new Claim(ClaimTypes.Role, userRole));
+            
+                          var roleClaims = await _roleManager.GetClaimsAsync(role);
+                          foreach(var roleClaim in roleClaims)
+                          {
+                              claims.Add(roleClaim);
+                          }
+                      }
+                  }
+                  var tokenDescriptor = new SecurityTokenDescriptor
+                  {
+                      Subject = new ClaimsIdentity(claims),
+                      Expires = DateTime.UtcNow.AddSeconds(30), // 5-10 
+                      SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+              
+                  };
 
-                var jwtToken = GenerateJwtToken(existingUser);
+                  var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+                  var jwtToken = jwtTokenHandler.WriteToken(token);
+                  
+                  await _context.SaveChangesAsync();
+     
 
-                return Ok(new RegistrationResponse()
-                {
+                  
+                  
+                //-----------------------------------------------
+               
+                //var jwtToken = GenerateJwtToken(existingUser);
+
+                return Ok( new Authentication() {
+                    Token = jwtToken,
                     IsSuccess = true,
-                    Token = jwtToken
+                      
                 });
 
 
@@ -142,30 +204,86 @@ namespace WebAPI.Controllers
             });
         }
         
-        
-        //function creation toker
-        private string GenerateJwtToken(IdentityUser user)
+        //--------------------------------------- CAUSE PROBLEME -----------------------------------------
+        // Get all valid claims for the corresponding user
+        private async Task<List<Claim>> GetAllValidClaims(IdentityUser user)
         {
-            var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
+            var claims = new List<Claim>
+            {
+                new Claim("Id", user.Id),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+            
+            //Getting the claims that we have assigned to the user
+                       var userClaims = await _userManager.GetClaimsAsync(user);
+                       claims.AddRange(userClaims);
+            
+                        // Get the user role and add it to the claims
+                        var userf = await _userManager.FindByNameAsync("Test");
+                        var userRoles = await _userManager.GetRolesAsync(userf);
+            
+                        foreach(var userRole in userRoles)
+                        {
+                            var role = await _roleManager.FindByNameAsync(userRole);
+            
+                            if(role != null)
+                            {
+                                claims.Add(new Claim(ClaimTypes.Role, userRole));
+            
+                                var roleClaims = await _roleManager.GetClaimsAsync(role);
+                                foreach(var roleClaim in roleClaims)
+                                {
+                                    claims.Add(roleClaim);
+                                }
+                            }
+                        }
+        
+            return claims;
+            
+        }
+
+        //function creation toker
+        private async Task<Authentication> GenerateJwtToken(IdentityUser user)
+        {
+           var jwtTokenHandler = new JwtSecurityTokenHandler();
+
+           var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
+
+           //test----------------------------
+           
+           var claims = new List<Claim>
+           {
+               new Claim("Id", user.Id),
+               new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+               new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+              
+           };
+           
+           //---------------------
+          
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("Id", user.Id),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                }),
-                //expiring time
-                Expires = DateTime.UtcNow.AddHours(6),
-                //incrypting method
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature)
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddSeconds(30), // 5-10 
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+              
             };
-            //prepartion token to be created by telling how we wants him to be created (what has been done above )
-            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
-            
-            var jwtToken = jwtTokenHandler.WriteToken(token);
-            return jwtToken;
 
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            var jwtToken = jwtTokenHandler.WriteToken(token);
+
+          
+
+         //   await _apiDbContext.RefreshTokens.AddAsync(refreshToken);
+            await _context.SaveChangesAsync();
+     
+
+            return new Authentication() {
+                Token = null,
+                IsSuccess = true,
+            };
         }
+        
     }
 }

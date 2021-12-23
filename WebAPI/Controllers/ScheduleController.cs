@@ -4,6 +4,8 @@ using Application.UserCase.Schedules;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Schedules;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +37,7 @@ namespace WebAPI.Controllers
         
         //GET api/Hoodie/{id}
         [HttpGet("{id}", Name = "GetScheduleById")]
-        public ActionResult<ScheduleReadDto> GetScheduleById(int id)
+        public ActionResult<ScheduleReadDto> GetScheduleById(Guid id)
         {
             var scheduleItems = _repository.GetScheduleById(id);
             if (scheduleItems != null)
@@ -59,6 +61,38 @@ namespace WebAPI.Controllers
             //return Ok(commandModel);
             return CreatedAtRoute(nameof(GetScheduleById), new {Id = scheduleReadDto.Id}, scheduleReadDto); 
         }
+        
+        //PUT api/Schedule/{id}
+        //used to update everything
+        [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public ActionResult UpdateSchedule(Guid id, ScheduleUpdateDto scheduleUpdateDto)
+        {
+            var scheduleModelFromRepo = _repository.GetScheduleById(id);
+            if (scheduleModelFromRepo == null)
+            {
+                return new NotFoundResult();
+            }
 
+            _mapper.Map(scheduleUpdateDto, scheduleModelFromRepo); 
+            _repository.UpdateSchedule(scheduleModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        //DELETE api/Music/{id}
+        [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        public ActionResult DeleteSchedule(Guid id)
+        {
+            var scheduleModelFromRepo = _repository.GetScheduleById(id);
+            if (scheduleModelFromRepo == null)
+            {
+                return new NotFoundResult();
+            }
+            _repository.DeleteSchedule(scheduleModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }

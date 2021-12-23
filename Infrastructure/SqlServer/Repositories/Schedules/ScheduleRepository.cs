@@ -25,7 +25,7 @@ namespace Infrastructure.SqlServer.Repositories.Schedules
             return _context.Schedules.ToList();
         }
 
-        public Domain.Schedules GetScheduleById(int id)
+        public Domain.Schedules GetScheduleById(Guid id)
         {
             return _context.Schedules.FirstOrDefault(p => p.Id == id);
         }

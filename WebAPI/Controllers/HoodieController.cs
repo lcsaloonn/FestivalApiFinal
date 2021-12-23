@@ -15,7 +15,6 @@ namespace WebAPI.Controllers
     [EnableCors("MyPolicy")]
     [Route("api/Hoodie")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class HoodieController:ControllerBase
     {
         private readonly IHoodiesRepository _repository;

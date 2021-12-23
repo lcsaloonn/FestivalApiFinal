@@ -7,7 +7,7 @@ namespace Infrastructure.SqlServer.Repositories.Schedules
     {
         bool SaveChanges();
         IEnumerable<Domain.Schedules> GetAllSchedule();
-        Domain.Schedules GetScheduleById(int id);
+        Domain.Schedules GetScheduleById(Guid id);
         void CreateSchedule(Domain.Schedules schedule);
         void UpdateSchedule(Domain.Schedules schedule);
         void DeleteSchedule(Domain.Schedules schedule);

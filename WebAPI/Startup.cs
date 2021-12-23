@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using Infrastructure.SqlServer.Data;
@@ -12,12 +14,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using WebAPI.configuration;
 
 
@@ -39,7 +43,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+                
             //Swagger Configuration
             services.AddSwaggerGen(c =>
             {
@@ -50,6 +54,7 @@ namespace WebAPI
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
+                
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement {
                     { 
                         new OpenApiSecurityScheme 
@@ -64,8 +69,8 @@ namespace WebAPI
                     } 
                 });
             });
-            
-            
+         
+           
             
             //ToDo change her   
             services.AddScoped<IUserRepository, UserRepository>();
@@ -81,7 +86,11 @@ namespace WebAPI
                 builder.WithOrigins("http://localhost:4200", "https://localhost:5001").AllowAnyMethod().AllowAnyHeader();
             }));
             
-            
+            services.AddAuthorization(options => 
+            {
+                options.AddPolicy("DepartmentPolicy",
+                    policy => policy.RequireClaim("department"));
+            });
             //JWT
             //map the config in appsettings to configuration.jwtconfig
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
@@ -89,6 +98,9 @@ namespace WebAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddDbContext<Context>(opt => opt.UseSqlServer(Configuration.GetConnectionString("FestivalConnection")));
+           
+            
+            
             
             //JWT
             services.AddAuthentication(options => {
@@ -109,8 +121,11 @@ namespace WebAPI
                         RequireExpirationTime = false // TOdo a modifier
                     };
                 });
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
+            
+          
+
 
         }
 
@@ -133,5 +148,10 @@ namespace WebAPI
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+        
+        
+        
     }
+    
+    
 }

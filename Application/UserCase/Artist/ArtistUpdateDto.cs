@@ -7,7 +7,7 @@ namespace Application.UserCase.Artist
     public class ArtistUpdateDto
     {
         [Key]
-        public int Id { get; set; }
+        public int Guid { get; set; }
         
         [Required]
         [MaxLength(250)]

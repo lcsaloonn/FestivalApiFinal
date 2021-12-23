@@ -5,7 +5,7 @@ namespace Application.UserCase.Artist
     public class ArtistReadDto
     {
         
-        public int Id { get; set; }
+        public  Guid Id{ get; set; }
         public string StageName { get; set; }
         public int IdMusic { get; set; }
         public int IdSchedule { get; set; }

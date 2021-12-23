@@ -6,7 +6,7 @@ namespace Domain
     public class Music
     {
         [Key]
-        public int Id { get; set; }
+        public  Guid Id{ get; set; }
         
         [Required]
         [MaxLength(250)]

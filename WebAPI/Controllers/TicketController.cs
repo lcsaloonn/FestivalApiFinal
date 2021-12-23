@@ -4,6 +4,8 @@ using Application.UserCase.Tickets;
 using AutoMapper;
 using Domain;
 using Infrastructure.SqlServer.Repositories.Ticket;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,8 +46,23 @@ namespace WebAPI.Controllers
 
         }
         
+        
+        //GET api/Ticket/{name}
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        [HttpGet("{name}/getTicketByName")]
+        public ActionResult<TicketReadDto> GetTicketByUserName(string name)
+        {
+            var ticketItems = _repository.getTicketByName(name);
+            if (ticketItems != null)
+            {
+                return Ok(_mapper.Map<TicketReadDto>(ticketItems));
+            }
+            return NotFound();
+        }
+        
         //POST api/Ticket
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public ActionResult<TicketReadDto> CreateTicket(TicketCreateDto ticketCreateDto)
         {
             var ticketModel = _mapper.Map<Ticket>(ticketCreateDto);
@@ -59,6 +76,7 @@ namespace WebAPI.Controllers
         
         //DELETE api/hoodie/{id}
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public ActionResult DeleteTicket(Guid id)
         {
             var ticketModelFromRepo = _repository.GetTicketById(id);

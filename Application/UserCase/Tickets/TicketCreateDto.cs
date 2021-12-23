@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Application.UserCase.Tickets
 {
@@ -6,5 +7,8 @@ namespace Application.UserCase.Tickets
     {
         [Required]
         public string Edition { get; set; }
+        
+        
+        public string Nom { get; set; }
     }
 }

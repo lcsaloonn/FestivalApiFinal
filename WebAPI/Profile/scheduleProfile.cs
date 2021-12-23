@@ -9,7 +9,8 @@ namespace WebAPI.Profile
         {
             CreateMap<Schedules, ScheduleReadDto>();
             CreateMap<ScheduleCreateDto, Schedules>();
-            
+            CreateMap<ScheduleUpdateDto, Schedules>();
+            CreateMap<Schedules, ScheduleUpdateDto>();
         }
     }
 }

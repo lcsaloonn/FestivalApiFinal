@@ -6,7 +6,7 @@ namespace Domain
 {
     public class Schedules
     {
-        [Key] public int Id { get; set; }
+        [Key] public  Guid Id { get; set; }
 
         [Required]
         public DateTime ScheduleStart { get; set; }

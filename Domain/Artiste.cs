@@ -7,7 +7,7 @@ namespace Domain
     public class Artiste
     {
         [Key]
-        public int Id { get; set; }
+        public  Guid Id { get; set; }
         
         [Required]
         [MaxLength(250)]
@@ -15,11 +15,11 @@ namespace Domain
         
         [Required]
         [ForeignKey("Music")]
-        public int IdMusic { get; set; }
+        public Guid IdMusic { get; set; }
         
         [Required]
         [ForeignKey("Schedules")]
-        public int IdSchedule { get; set; }
+        public Guid IdSchedule { get; set; }
 
         public virtual Music Music { get; set; } 
         public virtual Schedules Schedules { get; set; } 
