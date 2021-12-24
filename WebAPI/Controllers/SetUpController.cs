@@ -9,6 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
+
+/*
+ * <summary>
+ * Setup is where you can find all useful controller
+ *      - GetAllRoles to get every existing role
+ *      - GetAllUser to get all existing user
+ *      - GetUserRole to get every role(s) of an user
+ *      - AddUserToRole implement the liaison table with the guid of the user and the guid of the role
+ *      - PostRole create a role
+ *      - RemoveUserFromRole delete a role of an user
+ * </summary>
+ * <permission cref="Admin">Admin</permission>
+ */
 namespace WebAPI.Controllers
 {
     //api/setup

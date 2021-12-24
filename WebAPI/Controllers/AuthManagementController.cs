@@ -19,6 +19,15 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.configuration;
 
+/*
+ * <summary>
+ * AuthManagmentController allows you to
+ *      -Register
+ *      -Login
+ * This class use Application/Authentication
+ * </summary>
+ */
+
 namespace WebAPI.Controllers
 {
     //apiManagement 
@@ -46,6 +55,17 @@ namespace WebAPI.Controllers
             _context = context;
 
         }
+        /*
+         * <summary>
+         * Register to register a user in data Base it will also give him a default role of AppUser
+         * </summary>
+         *<param name="user">Use the UserRegistrationDto (String pseudo and String password)</param>
+         * <returns>
+         *  Succeeded: a 200 code
+         *  Not Succeeded:  a badRequest + IsSucceeded false + The error you've done 
+         * </returns>
+         * 
+         */
 
         [HttpPost]
         [Route("Register")]
@@ -54,7 +74,7 @@ namespace WebAPI.Controllers
             if (ModelState.IsValid)// si bien required et 250 caractère
             {
                 //pseudo unnique ToDo verifier FindByNameAsync
-                var existingUser = await _userManager.FindByNameAsync(user.Pseudo);
+                  var existingUser = await _userManager.FindByNameAsync(user.Pseudo);
                 if (existingUser != null)
                 {
                     return BadRequest(new RegistrationResponse()
@@ -103,7 +123,19 @@ namespace WebAPI.Controllers
                 IsSuccess = false
             });
         }
-
+        /*
+            * <summary>
+            * Login allows you to login it will also provide you with a Jwt
+            * </summary>
+            *<param name="user">Use the UserLoginRequest (String pseudo and String password)</param>
+            * <returns>
+            *  succeeded: a 200 code with JWT token 
+            *  Not Succeeded: badRequest + IsSucceeded false
+            * </returns>
+            *
+            * <remarks>The JWT are Generated in this method because of a cycle error in the GeneratingJwt method bellow</remarks>
+            * 
+         */
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest user)

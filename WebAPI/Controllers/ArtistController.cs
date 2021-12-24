@@ -9,6 +9,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
+
+/*
+ * <summary>
+ * Artist Controller allows you to
+ *      -Get All Artist
+ *      -Get an Artist by Id
+ *      -Create an Artist (it will also create a Music and a Schedule)
+ *      -Update an Artist using his id
+ *      -Delete an Artist using his id
+ * </summary>
+ */
+
+
 namespace WebAPI.Controllers
 {
     [EnableCors("MyPolicy")]
@@ -24,6 +37,8 @@ namespace WebAPI.Controllers
             _repository = repository;
             _mapper = mapper;
         }
+        
+        
         //GET api/Artist
         [HttpGet]
         public ActionResult<IEnumerable<ArtistReadDto>> GetAllArtist()

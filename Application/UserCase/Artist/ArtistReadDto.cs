@@ -7,8 +7,8 @@ namespace Application.UserCase.Artist
         
         public  Guid Id{ get; set; }
         public string StageName { get; set; }
-        public int IdMusic { get; set; }
-        public int IdSchedule { get; set; }
+        public Guid IdMusic { get; set; }
+        public Guid IdSchedule { get; set; }
         //public virtual Domain.Music Music { get; set; }
         //public virtual  Domain.Schedules Schedules { get; set; }
     }

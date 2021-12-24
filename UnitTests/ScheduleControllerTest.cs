@@ -113,11 +113,11 @@ namespace UnitTests
         public void GetScheduleById_Returns404_WhenNonIdProvided()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetScheduleById(0)).Returns(() => null);
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.Empty)).Returns(() => null);
             var controller = new ScheduleController(mockRepo.Object, mapper);
             
             //Act
-            var result = controller.GetScheduleById(1);
+            var result = controller.GetScheduleById(Guid.NewGuid());
             
             //Assert
             Assert.IsType<NotFoundResult>(result.Result);
@@ -128,16 +128,16 @@ namespace UnitTests
         public void GetScheduleById_Returns200_WhenValidIdProvided()
         {
             //Arrange 
-            mockRepo.Setup(repo => repo.GetScheduleById(1)).Returns(new Schedules
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.NewGuid())).Returns(new Schedules
             {
-                Id=1,
+                Id=Guid.NewGuid(),
                 ScheduleStart = RandomDay(),
                 ScheduleEnd = RandomDay(),
             });
             var controller = new ScheduleController(mockRepo.Object, mapper);
             
             //Act
-            var result = controller.GetScheduleById(1);
+            var result = controller.GetScheduleById(Guid.NewGuid());
             
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
@@ -148,16 +148,16 @@ namespace UnitTests
         public void GetScheduleById_ReturnsCorrectResourceType_WhenValidIdProvided()
         {
             //Arrange 
-            mockRepo.Setup(repo => repo.GetScheduleById(1)).Returns(new Schedules
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.NewGuid())).Returns(new Schedules
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 ScheduleStart = RandomDay(),
                 ScheduleEnd = RandomDay(),
             });
             var controller = new ScheduleController(mockRepo.Object, mapper);
             
             //Act
-            var result = controller.GetScheduleById(1);
+            var result = controller.GetScheduleById(Guid.NewGuid());
             
             //Assert
             Assert.IsType<ActionResult<ScheduleReadDto>>(result);
@@ -170,9 +170,9 @@ namespace UnitTests
         public void CreateSchedule_ReturnsCorrectResourceType_WhenValidSubmit()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetScheduleById(1)).Returns(new Schedules
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.NewGuid())).Returns(new Schedules
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 ScheduleStart = RandomDay(),
                 ScheduleEnd = RandomDay()
             });
@@ -188,9 +188,9 @@ namespace UnitTests
         public void CreateSchedule_Returns200e_WhenValidSubmit()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetScheduleById(1)).Returns(new Schedules()
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.NewGuid())).Returns(new Schedules()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 ScheduleStart = RandomDay(),
                 ScheduleEnd = RandomDay()
             });
@@ -209,15 +209,15 @@ namespace UnitTests
         public void UpdateSchedule_Returns204_WhenValidObjectSubmitted()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetScheduleById(1)).Returns(new Schedules
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.NewGuid())).Returns(new Schedules
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 ScheduleStart = RandomDay(),
                 ScheduleEnd = RandomDay()
             });
             var controller = new ScheduleController(mockRepo.Object, mapper);
             //Act 
-            var result = controller.UpdateSchedule(1, new ScheduleUpdateDto() { });
+            var result = controller.UpdateSchedule(Guid.NewGuid(), new ScheduleUpdateDto() { });
             //Assert
             Assert.IsType<NoContentResult>(result);
 
@@ -227,10 +227,10 @@ namespace UnitTests
         public void UpdateSchedule_Returns404_WhenNonExistingIdSubmitted()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetScheduleById(0)).Returns(() => null);
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.Empty)).Returns(() => null);
             var controller = new ScheduleController(mockRepo.Object, mapper);
             //Act 
-            var result = controller.UpdateSchedule(0, new ScheduleUpdateDto() { });
+            var result = controller.UpdateSchedule(Guid.Empty, new ScheduleUpdateDto() { });
             //Assert
             Assert.IsType<NotFoundResult>(result);
         }
@@ -243,15 +243,15 @@ namespace UnitTests
         [Fact]
         public void DeleteSchedule_Returns200_WhenValidIdSubmitted()
         {
-            mockRepo.Setup(repo => repo.GetScheduleById(1)).Returns(new Schedules()
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.NewGuid())).Returns(new Schedules()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 ScheduleStart = RandomDay(),
                 ScheduleEnd = RandomDay()
             });
             var controller = new ScheduleController(mockRepo.Object, mapper);
             //Act 
-            var result = controller.DeleteSchedule(1);
+            var result = controller.DeleteSchedule(Guid.NewGuid());
             //Assert
             Assert.IsType<NoContentResult>(result);
         }
@@ -259,10 +259,10 @@ namespace UnitTests
         [Fact]
         public void DeleteSchedule_Returns404_WhenNonExistingIdSubmitted()
         {
-            mockRepo.Setup(repo => repo.GetScheduleById(0)).Returns(() => null);
+            mockRepo.Setup(repo => repo.GetScheduleById(Guid.Empty)).Returns(() => null);
             var controller = new ScheduleController(mockRepo.Object, mapper);
             //Act
-            var result = controller.DeleteSchedule(0);
+            var result = controller.DeleteSchedule(Guid.Empty);
             //Assert
             Assert.IsType<NotFoundResult>(result);
         }
@@ -277,7 +277,7 @@ namespace UnitTests
             {
                 schedules.Add(new Schedules
                     {
-                        Id=0,
+                        Id=Guid.Empty,
                         ScheduleStart = RandomDay(),
                         ScheduleEnd = RandomDay(),
                     }

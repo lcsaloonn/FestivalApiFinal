@@ -1,0 +1,3 @@
+﻿1) Open your terminal
+2) Go in the infrastructure File  cd/infrastructure
+3)insert -->      dotnet ef --startup-project ..\WebAPI  database update

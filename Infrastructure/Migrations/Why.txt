@@ -1,6 +1,0 @@
-this file able us to create table in our data base 
-
-we need for it:
-
-a model
-a class context

@@ -1,0 +1,87 @@
+﻿FestivalAPI
+  +---------+Application
+  |         |
+  |         +------authentication
+  |         |           +---------RegistrationResponse.cs
+  |         |           +---------UserLoginRequest.cs
+  |         |           +---------UserRegistrationDto.cs
+  |         |
+  |         +------Configuration   
+  |         |           +---------authentication.cs
+  |         |           +---------JWtconfig.cs
+  |         |           
+  |         +------UserCase
+  |                     +---------Artist
+  |                     |           +-----ArtistCreateDto.cs
+  |                     |           +-----ArtistReadDto.cs
+  |                     |           +-----ArtistUpdateDto.cs
+  |                     +---------Hoodie
+  |                     |           +-----HoodieCreateDto.cs
+  |                     |           +-----HoodieReadDto.cs
+  |                     |           +-----HoodieUpdateDto.cs
+  |                     +---------Music
+  |                     |           +-----MusicCreateDto.cs
+  |                     |           +-----MusicReadDto.cs
+  |                     |           +-----MusicUpdateDto.cs
+  |                     +---------Schedules
+  |                     |           +-----ScheduleCreateDto.cs
+  |                     |           +-----ScheduleReadDto.cs
+  |                     |           +-----ScheduleUpdateDto.cs
+  |                     +---------Tickets
+  |                                 +-----TicketCreateDto.cs
+  |                                 +-----TicketReadDto.cs
+  |                                 +-----TicketUpdateDto.cs
+  | 
+  +---------+Infracstructure
+  |         | 
+  |         +------Migration [Migration File to create Data Base Generated]
+  |         |
+  |         +------SqlServer
+  |                     +---------Data
+  |                     |           +---------Context.cs
+  |                     |
+  |                     +---------Repositories
+  |                                 +---------Artiste
+  |                                 |             +---------ArtistRepository.cs
+  |                                 |             +---------IArtistRepository.cs
+  |                                 +---------Hoodies
+  |                                 |             +---------HoodieRepository.cs
+  |                                 |             +---------IHoodieRepository.cs
+  |                                 +---------Music
+  |                                 |             +---------MusicRepository.cs
+  |                                 |             +---------IMusicRepository.cs
+  |                                 +---------Schedules
+  |                                 |             +---------ScheduleRepository.cs
+  |                                 |             +---------IScheduleRepository.cs
+  |                                 +---------Ticket
+  |                                               +---------TicketRepository.cs
+  |                                               +---------ITicketRepository.cs
+  |                                               
+  +---------+Domaine
+  |         | 
+  |         +------Artiste.cs
+  |         +------Hoodies.cs
+  |         +------Music.cs
+  |         +------schedule.cs
+  |         +------Ticket.cs
+  |                          
+  +---------+WebApi (reference to Domain, Infrastructure,Application)
+            +------Controllers use infrastructure
+            |           +------ArtistController.cs
+            |           +------AuthManagementController.cs
+            |           +------HoodieController.cs
+            |           +------MusicController.cs
+            |           +------ScheduleController.cs
+            |          +------SetUpController.cs
+            |           +------TicketController.cs
+            +------Profile
+            |           +------ArtistProfile.cs
+            |           +------HoodieProfile.cs
+            |           +------MusicProfile.cs
+            |           +------ScheduleProfile.cs
+            |           +------TicketProfile.cs
+            +------Program.cs
+            +------Startup.cs
+            +------appsetting.json
+            +------appsetting.Development.json       
+                            

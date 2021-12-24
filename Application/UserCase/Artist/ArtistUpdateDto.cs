@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Application.UserCase.Music;
+using Application.UserCase.Schedules;
 
 namespace Application.UserCase.Artist
 {
@@ -21,7 +23,7 @@ namespace Application.UserCase.Artist
         [ForeignKey("Schedules")]
         public int IdSchedule { get; set; }
 
-        public virtual Domain.Music Music { get; set; }
-        public virtual  Domain.Schedules Schedules { get; set; }
+        public virtual MusicCreateDto Music { get; set; }
+        public virtual ScheduleCreateDto Schedules { get; set; }
     }
 }

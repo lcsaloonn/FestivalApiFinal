@@ -15,6 +15,7 @@ dotnet ef -->to verify it have been uploaded
 dotnet ef migrations add initialmigrations
 ou 
 dotnet ef --startup-project C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\WebAPI  migrations add myMigration01
+dotnet ef --startup-project ..\WebAPI  migrations add myMigration01
 
 
 4) create the database ( if all is correctly set)

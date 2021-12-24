@@ -9,6 +9,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
+/*
+ * <summary>
+ * MusicController allows you to
+ *      - GetMusicById get an music by his id
+ *      - GetAllMusic get all existing music
+ *      - createMusic to create an music
+ *      - UpdateMusic to update music
+ *      - DeleteMusic to delete the music
+ * </summary>
+ *
+ */
 namespace WebAPI.Controllers
 {
     [EnableCors("MyPolicy")]

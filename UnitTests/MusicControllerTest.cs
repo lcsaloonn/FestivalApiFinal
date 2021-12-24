@@ -113,11 +113,11 @@ namespace UnitTests
         public void GetMusicById_Returns404_WhenNonIdProvided()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetMusicById(0)).Returns(() => null);
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.Empty)).Returns(() => null);
             var controller = new MusicController(mockRepo.Object, mapper);
             
             //Act
-            var result = controller.GetMusicById(1);
+            var result = controller.GetMusicById(Guid.NewGuid());
             
             //Assert
             Assert.IsType<NotFoundResult>(result.Result);
@@ -128,16 +128,16 @@ namespace UnitTests
         public void GetMusicById_Returns200_WhenValidIdProvided()
         {
             //Arrange 
-            mockRepo.Setup(repo => repo.GetMusicById(1)).Returns(new Music
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.NewGuid())).Returns(new Music
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Title = "thomas",
                 Link = "/music/mucis",
             });
             var controller = new MusicController(mockRepo.Object, mapper);
             
             //Act
-            var result = controller.GetMusicById(1);
+            var result = controller.GetMusicById(Guid.NewGuid());
             
             //Assert
             Assert.IsType<OkObjectResult>(result.Result);
@@ -148,16 +148,16 @@ namespace UnitTests
         public void GetMusicById_ReturnsCorrectResourceType_WhenValidIdProvided()
         {
             //Arrange 
-            mockRepo.Setup(repo => repo.GetMusicById(1)).Returns(new Music
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.NewGuid())).Returns(new Music
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Title = "Thomas",
                 Link = "music/musics"
             });
             var controller = new MusicController(mockRepo.Object, mapper);
             
             //Act
-            var result = controller.GetMusicById(1);
+            var result = controller.GetMusicById(Guid.NewGuid());
             
             //Assert
             Assert.IsType<ActionResult<MusicReadDto>>(result);
@@ -170,9 +170,9 @@ namespace UnitTests
         public void CreateMusic_ReturnsCorrectResourceType_WhenValidSubmit()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetMusicById(1)).Returns(new Music
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.NewGuid())).Returns(new Music
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Title = "thomas",
                 Link = "music/musics"
             });
@@ -188,9 +188,9 @@ namespace UnitTests
         public void CreateMusic_Returns200e_WhenValidSubmit()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetMusicById(1)).Returns(new Music
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.NewGuid())).Returns(new Music
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Title = "thomas",
                 Link = "music/musics"
             });
@@ -208,15 +208,15 @@ namespace UnitTests
         public void UpdateMusic_Returns204_WhenValidObjectSubmitted()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetMusicById(1)).Returns(new Music
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.NewGuid())).Returns(new Music
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Title = "thomas",
                 Link = "music/musics"
             });
             var controller = new MusicController(mockRepo.Object, mapper);
             //Act 
-            var result = controller.UpdateMusic(1, new MusicUpdateDto { });
+            var result = controller.UpdateMusic(Guid.NewGuid(), new MusicUpdateDto { });
             //Assert
             Assert.IsType<NoContentResult>(result);
 
@@ -226,10 +226,10 @@ namespace UnitTests
         public void UpdateMusic_Returns404_WhenNonExistingIdSubmitted()
         {
             //Arrange
-            mockRepo.Setup(repo => repo.GetMusicById(0)).Returns(() => null);
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.Empty)).Returns(() => null);
             var controller = new MusicController(mockRepo.Object, mapper);
             //Act 
-            var result = controller.UpdateMusic(0, new MusicUpdateDto { });
+            var result = controller.UpdateMusic(Guid.Empty, new MusicUpdateDto { });
             //Assert
             Assert.IsType<NotFoundResult>(result);
         }
@@ -242,15 +242,15 @@ namespace UnitTests
         [Fact]
         public void DeleteMusic_Returns200_WhenValidIdSubmitted()
         {
-            mockRepo.Setup(repo => repo.GetMusicById(1)).Returns(new Music
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.NewGuid())).Returns(new Music
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Title = "thomas",
                 Link = "music/musics"
             });
             var controller = new MusicController(mockRepo.Object, mapper);
             //Act 
-            var result = controller.DeleteMusic(1);
+            var result = controller.DeleteMusic(Guid.NewGuid());
             //Assert
             Assert.IsType<NoContentResult>(result);
         }
@@ -258,10 +258,10 @@ namespace UnitTests
         [Fact]
         public void DeleteMusic_Returns404_WhenNonExistingIdSubmitted()
         {
-            mockRepo.Setup(repo => repo.GetMusicById(0)).Returns(() => null);
+            mockRepo.Setup(repo => repo.GetMusicById(Guid.Empty)).Returns(() => null);
             var controller = new MusicController(mockRepo.Object, mapper);
             //Act
-            var result = controller.DeleteMusic(0);
+            var result = controller.DeleteMusic(Guid.Empty);
             //Assert
             Assert.IsType<NotFoundResult>(result);
         }
@@ -277,7 +277,7 @@ namespace UnitTests
             {
                 musics.Add(new Music
                     {
-                        Id=0,
+                        Id=Guid.Empty,
                         Title = "thomas",
                         Link = "music/music"
                     }

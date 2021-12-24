@@ -10,8 +10,21 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
+
+/*
+ * <summary>
+ * HoodieController allows you to
+ *      - GetHoodieById get an hoodie by his id
+ *      - GetAllMusic get all existing hoodie
+ *      - createMusic to create an hoodie
+ *      - UpdateMusic to update hoodie
+ *      - DeleteHoodie to delete the hoodie
+ * </summary>
+ *
+ */
 namespace WebAPI.Controllers
 {
+    
     [EnableCors("MyPolicy")]
     [Route("api/Hoodie")]
     [ApiController]

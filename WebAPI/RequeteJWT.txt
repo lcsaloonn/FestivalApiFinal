@@ -1,4 +1,0 @@
-﻿to do a request with JWT you need to add 
-            "Bearer (token)"
- exemple 
-            Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjdmNjc1ZDU3LWMxM2MtNDk0NS1hOGNlLWIyOTgxZTA0MTA4YiIsImp0aSI6Ijg5OWYyMDBkLTZlMDgtNDBkMy1iZTE5LThkMjQ4NjFhMjlmNyIsIm5iZiI6MTYzOTEzMTM2MywiZXhwIjoxNjM5MTUyOTYzLCJpYXQiOjE2MzkxMzEzNjN9.YM3-RlLPGawNhlb7wWqsryeIXS1nAxsowh8E8Ewq1yos

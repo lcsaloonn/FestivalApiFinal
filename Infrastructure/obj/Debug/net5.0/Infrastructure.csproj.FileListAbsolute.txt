@@ -15,4 +15,3 @@ C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Deb
 C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\net5.0\ref\Infrastructure.dll
 C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\net5.0\Infrastructure.pdb
 C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\net5.0\Infrastructure.genruntimeconfig.cache
-C:\Users\entic\Desktop\Bac3\TI\projetFestival\FestivalAPI\Infrastructure\obj\Debug\net5.0\Infrastructure.csproj.CopyComplete
