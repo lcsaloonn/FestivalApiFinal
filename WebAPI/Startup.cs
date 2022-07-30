@@ -83,7 +83,7 @@ namespace WebAPI
             //Enable CORS for ip
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:4200", "https://localhost:5001",""https://localhost:5001","https://helha-festival.herokuapp.com").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("http://localhost:4200", "https://localhost:5001","https://localhost:5001","https://helha-festival.herokuapp.com").AllowAnyMethod().AllowAnyHeader();
             }));
             
             services.AddAuthorization(options => 
